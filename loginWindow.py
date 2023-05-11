@@ -6,12 +6,12 @@ from modalsWindow import ModalLogin, CaptchaLogin
 class LoginWindow(QWidget):
     def enterClicked(self, login, password):
             if login == "a" and password == "b":
+                self.modal = ModalLogin()
+                self.modal.show()
+            else:
                 self.captchaModal = CaptchaLogin()
                 self.captchaModal.show()
-            else:
-                self.counter += 1
-                self.modal = ModalLogin(count=self.counter)
-                self.modal.show()
+
     
     def __init__(self):
         super().__init__()
