@@ -6,18 +6,13 @@ import functools
 class ModalLogin(QWidget):
     def __init__(self):
         super().__init__()
-        # self.timer = 0
-        # if count == 0:
-        #     self.timer = 3
-        # if count == 0:
-        #     self.timer = 3
         #window settings
-        self.setWindowTitle("Неверный пароль")
+        self.setWindowTitle("Вы вошли")
         self.setFixedSize(400, 200)
         self.setWindowModality(Qt.WindowModality.ApplicationModal)
         #widgets
         font = QFont("Open sans", pointSize=15)
-        self.error = QLabel("<center>Ваше окно заблокиравоно на 10 сек.</center>")
+        self.error = QLabel("<center>Верный пароль</center>")
         self.error.setFont(font)
         #layout
         vbox = QVBoxLayout()
@@ -25,6 +20,7 @@ class ModalLogin(QWidget):
         self.setLayout(vbox)
 
 class CaptchaLogin(QWidget):
+    isExit = False
     counter = 0
     acess = True
     def update_timer(self, timer): 
@@ -46,6 +42,7 @@ class CaptchaLogin(QWidget):
         if self.acess:
             self.timer = 0
             if captcha == "2vyk":
+                self.isExit = True
                 self.close()
             else:
                 self.counter += 1
@@ -59,7 +56,7 @@ class CaptchaLogin(QWidget):
                 self.acess = False
                 self.capthca_timer(self.timer)
     def closeEvent(self, e):
-        if(not self.acess):
+        if(not self.isExit):
             e.ignore()
 
     def __init__(self):
